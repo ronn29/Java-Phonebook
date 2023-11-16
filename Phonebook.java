@@ -1,18 +1,16 @@
 import java.util.Scanner;
  
 public class Phonebook {
-
     public static Scanner s = new Scanner(System.in);
     private String[] names;
     private String[] numbers;
     private int size = 0;
     private static final int contactSize = 10;
-    
+ 
     public Phonebook() {
         names = new String[contactSize];
         numbers = new String[contactSize];
     }
-    
  
     public static void main(String[] args) {
         Phonebook pb = new Phonebook();
@@ -28,26 +26,37 @@ public class Phonebook {
             System.out.print("\nSelect: ");
             int select = s.nextInt();
             s.nextLine();
- 
-            if (select == 1) {
+          
+            switch(select){
+               case 1:
+                  System.out.print("Enter name: ");
+                  String name = s.nextLine();
+                  System.out.print("Enter number: ");
+                  String phoneNumber = s.nextLine();
+                  pb.addContact(name, phoneNumber);
+                  break;
+               
+               case 2:
+                  System.out.print("Enter index to edit: ");
+                  int index = s.nextInt();
+                  pb.editContact(index);
+                  break;
+               
+               case 3:
+                  System.out.print("Enter index to delete: ");
+                   index = s.nextInt();
+                  pb.deleteContact(index);
+                  break;
+               
+               case 4:
+                  System.out.println("Here are the list");
+                  pb.viewContacts();
+                  break;
+               
+               default:
+                  System.out.println("Invalid");
+                  break;
             
-                System.out.print("Enter name: ");
-                String name = s.nextLine();
-                System.out.print("Enter number: ");
-                String phoneNumber = s.nextLine();
-                pb.addContact(name, phoneNumber);
-                
-            } else if (select == 2) {
-                System.out.print("Enter index to edit: ");
-                int index = s.nextInt();
-                pb.editContact(index);
-            } else if (select == 3) {
-                System.out.print("Enter index to delete: ");
-                int index = s.nextInt();
-                pb.deleteContact(index);
-            } else if (select == 4) {
-                System.out.println("Here are the list");
-                pb.viewContacts();
             }
         }
     }
