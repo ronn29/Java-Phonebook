@@ -8,8 +8,10 @@ public class Phonebook {
     private int size = 0;
     private static final int contactSize = 10;
     
-    names = new String[contactSize];
-    numbers = new String[contactSize];
+    public Phonebook() {
+        names = new String[contactSize];
+        numbers = new String[contactSize];
+    }
     
  
     public static void main(String[] args) {
@@ -33,19 +35,19 @@ public class Phonebook {
                 String name = s.nextLine();
                 System.out.print("Enter number: ");
                 String phoneNumber = s.nextLine();
-                addContact(name, phoneNumber);
+                pb.addContact(name, phoneNumber);
                 
             } else if (select == 2) {
                 System.out.print("Enter index to edit: ");
                 int index = s.nextInt();
-                editContact(index);
+                pb.editContact(index);
             } else if (select == 3) {
                 System.out.print("Enter index to delete: ");
                 int index = s.nextInt();
-                deleteContact(index);
+                pb.deleteContact(index);
             } else if (select == 4) {
                 System.out.println("Here are the list");
-                viewContacts();
+                pb.viewContacts();
             }
         }
     }
