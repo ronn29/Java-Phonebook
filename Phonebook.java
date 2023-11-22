@@ -1,113 +1,126 @@
+package test;
+
 import java.util.Scanner;
- 
-public class Phonebook {
-    public static Scanner s = new Scanner(System.in);
-    private String[] names;
-    private String[] numbers;
-    private int size = 0;
-    private static final int contactSize = 10;
- 
-    public Phonebook() {
-        names = new String[contactSize];
-        numbers = new String[contactSize];
-    }
- 
-    public static void main(String[] args) {
-        Phonebook pb = new Phonebook();
- 
+
+
+public class Phonebook
+{
+    public static void main(String args[])
+    {
+        Contacts contacts=new Contacts();
+        Scanner s= new Scanner(System.in);
+
         System.out.println("Welcome to my Phonebook");
-        System.out.println("What do you want to do?");
-        System.out.println("\n1. Add");
-        System.out.println("2. Edit");
-        System.out.println("3. Delete");
-        System.out.println("4. View");
- 
-        while (true) {
-            System.out.print("\nSelect: ");
-            int select = s.nextInt();
+        System.out.println("What  do you want to do?");
+        System.out.println("[1] View List \n[2] Add New \n[3] Edit \n[4] Delete");
+
+        while (1 != 0){
+
+
+
+            System.out.print("Enter Option: ");
+            int choice= s.nextInt();
             s.nextLine();
-          
-            switch(select){
-               case 1:
-                  System.out.print("Enter name: ");
-                  String name = s.nextLine();
-                  System.out.print("Enter number: ");
-                  String phoneNumber = s.nextLine();
-                  pb.addContact(name, phoneNumber);
-                  break;
-               
-               case 2:
-                  System.out.print("Enter index to edit: ");
-                  int index = s.nextInt();
-                  pb.editContact(index);
-                  break;
-               
-               case 3:
-                  System.out.print("Enter index to delete: ");
-                   index = s.nextInt();
-                  pb.deleteContact(index);
-                  break;
-               
-               case 4:
-                  System.out.println("Here are the list");
-                  pb.viewContacts();
-                  break;
-               
-               default:
-                  System.out.println("Invalid");
-                  break;
-            
+
+            switch(choice){
+
+                case 1:
+                    System.out.println("You have selected view");
+                    contacts.ViewList();
+                    break;
+
+                case 2:
+                    System.out.println("You have selected Add new");
+
+                    System.out.print("Enter name: ");
+                    String name = s.nextLine();
+
+                    System.out.print("Enter number: ");
+                    String num = s.nextLine();
+
+                    contacts.addContact(name, num);
+                    break;
+
+                case 3:
+                    System.out.println("You have selected Edit");
+
+                    System.out.print("Enter index to edit: ");
+                    int i = s.nextInt();
+
+                    contacts.editContact(i);
+
+
+                case 4:
+                    System.out.println("You have selected Delete");
+                    System.out.print("Enter index to delete: ");
+                    int x = s.nextInt();
+                    contacts.deleteContact(x);
+                    break;
             }
         }
+
+
     }
- 
-    public void addContact(String name, String number) {
-        if (size < contactSize) {
-            names[size] = name;
-            numbers[size] = number;
-            size++;
-        }
+}
+class Contacts
+{
+
+    String[] contact_name;
+    String[] contact_num;
+
+    int size;
+    final int max_contact = 10;
+
+    public Contacts() {
+        contact_name = new String[max_contact];
+        contact_num = new String[max_contact];
+        size = 0;
     }
- 
-    public void viewContacts() {
+
+    public void ViewList()
+    {
+        System.out.println("Here are your contacts:");
+
         for (int i = 0; i < size; i++) {
-            
-            System.out.printf("\nName: %s[%d] | Number: %s", names[i], i, numbers[i]);
+            System.out.println("["+ i+"]"+ contact_name[i] +" "+ contact_num[i]);
+        }
+
+    }
+    public void addContact(String name, String phoneNumber) {
+        if (size < max_contact) {
+            contact_name[size] = name;
+            contact_num[size] = phoneNumber;
+            size++;
+            System.out.println("Contact added: " + name + " - " + phoneNumber);
         }
     }
- 
     public void deleteContact(int index) {
         if (index >= 0 && index < size) {
             for (int i = index; i < size - 1; i++) {
-                names[i] = names[i + 1];
-                numbers[i] = numbers[i + 1];
+                contact_name[i] = contact_name[i + 1];
+                contact_num[i] = contact_num[i + 1];
             }
             size--;
-        } else {
-            System.out.println("Invalid index to delete");
         }
     }
- 
+
     public void editContact(int index) {
+        Scanner s = new Scanner(System.in);
         if (index >= 0 && index < size) {
-            System.out.printf("\nName: %s[%d] | Number: %s", names[index], index, numbers[index]);
+            System.out.printf("\nName: %s[%d] | Number: %s", contact_name[index], index, contact_num[index]);
             System.out.print("\nName[1] | Number[2]: ");
             int choice = s.nextInt();
             s.nextLine();
- 
+
             if (choice == 1) {
                 System.out.print("Name: ");
                 String newName = s.nextLine();
-                names[index] = newName;
+                contact_name[index] = newName;
             } else if (choice == 2) {
                 System.out.print("Number: ");
                 String newNumber = s.nextLine();
-                numbers[index] = newNumber;
-            } else {
-                System.out.println("Invalid choice for editing");
+                contact_num[index] = newNumber;
             }
-        } else {
-            System.out.println("Invalid index to edit");
         }
     }
 }
